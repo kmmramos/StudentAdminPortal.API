@@ -26,6 +26,9 @@ namespace StudentAdminPortal.API.Profiles
                 //.ForMember(dest => dest.Address.PhysicalAddress, opt => opt.MapFrom(src => src.PhysicalAddress))
                 //.ForMember(dest => dest.Address.PostalAddress, opt => opt.MapFrom(src => src.PostalAddress));
                 .AfterMap<UpdateStudentRequestAfterMap>();
+
+            CreateMap<AddStudentRequest, DataModels.Student>()
+                .AfterMap<AddStudentRequestAfterMap>();
         }
     }
 }
