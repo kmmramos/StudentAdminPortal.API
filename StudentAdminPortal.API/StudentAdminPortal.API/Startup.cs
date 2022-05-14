@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation.AspNetCore;
 
 namespace StudentAdminPortal.API
 {
@@ -45,6 +46,10 @@ namespace StudentAdminPortal.API
             });
 
             services.AddControllers();
+
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+
             // Inject DBContext to the services of the application
             services.AddDbContext<StudentAdminContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("StudentAdminPortalDb")));
@@ -76,6 +81,7 @@ namespace StudentAdminPortal.API
 
             app.UseHttpsRedirection();
 
+            // To give the right file path to the UI
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Resources")),
